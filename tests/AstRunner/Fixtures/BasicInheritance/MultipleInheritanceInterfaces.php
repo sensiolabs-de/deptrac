@@ -1,6 +1,6 @@
 <?php 
 
-namespace Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures;
+namespace Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance;
 
 interface MultipleInteritanceA1 { } // []
 interface MultipleInteritanceA2 { } // []

@@ -132,7 +132,7 @@ class ClassReferenceVisitor extends NodeVisitorAbstract
             }
         }
 
-        if (($node instanceof Node\Stmt\ClassMethod || $node instanceof Node\Expr\Closure) && null !== $node->returnType) {
+        if ($node instanceof Node\Expr\Closure && null !== $node->returnType) {
             foreach ($this->typeResolver->resolvePHPParserTypes($this->currentTypeScope, $node->returnType) as $classLikeName) {
                 $classReferenceBuilder->returnType($classLikeName, $node->returnType->getLine());
             }

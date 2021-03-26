@@ -1,13 +1,13 @@
 <?php 
 
-namespace Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures;
+namespace Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance;
 
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceWithNoiseFoo1 as foo1;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceWithNoiseFoo1 as foo1;
 
-final class FixtureBasicInheritanceWithNoiseFoo1 {}
-final class FixtureBasicInheritanceWithNoiseFoo2 {}
+class FixtureBasicInheritanceWithNoiseFoo1 {}
+class FixtureBasicInheritanceWithNoiseFoo2 {}
 
-final class FixtureBasicInheritanceWithNoiseA {
+class FixtureBasicInheritanceWithNoiseA {
 
     function a(foo1 $a) {
         new foo1();
@@ -15,7 +15,7 @@ final class FixtureBasicInheritanceWithNoiseA {
     }
 
 }
-final class FixtureBasicInheritanceWithNoiseB extends FixtureBasicInheritanceWithNoiseA { }
-final class FixtureBasicInheritanceWithNoiseC extends FixtureBasicInheritanceWithNoiseB { }
+class FixtureBasicInheritanceWithNoiseB extends FixtureBasicInheritanceWithNoiseA { }
+class FixtureBasicInheritanceWithNoiseC extends FixtureBasicInheritanceWithNoiseB { }
 
 new FixtureBasicInheritanceWithNoiseFoo2();

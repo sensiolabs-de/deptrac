@@ -46,11 +46,6 @@ class NikicPhpParser implements AstParser
      */
     private $classDependencyResolvers;
 
-    /**
-     * @var NodeTraverser
-     */
-    private $traverser;
-
     public function __construct(
         Parser $parser,
         AstFileReferenceCache $cache,
@@ -61,9 +56,6 @@ class NikicPhpParser implements AstParser
         $this->cache = $cache;
         $this->typeResolver = $typeResolver;
         $this->classDependencyResolvers = $classDependencyResolvers;
-
-        $this->traverser = new NodeTraverser();
-        $this->traverser->addVisitor(new NameResolver());
     }
 
     public function parseFile(string $file): AstFileReference
@@ -80,9 +72,10 @@ class NikicPhpParser implements AstParser
             throw new ShouldNotHappenException();
         }
 
-        $this->traverser->addVisitor($visitor);
-        $this->traverser->traverse($nodes);
-        $this->traverser->removeVisitor($visitor);
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new NameResolver());
+        $traverser->addVisitor($visitor);
+        $traverser->traverse($nodes);
 
         $fileReference = $fileReferenceBuilder->build();
         $this->cache->set($fileReference);
@@ -115,9 +108,9 @@ class NikicPhpParser implements AstParser
             throw new ShouldNotHappenException();
         }
 
-        $this->traverser->addVisitor($findingVisitor);
-        $this->traverser->traverse($nodes);
-        $this->traverser->removeVisitor($findingVisitor);
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor($findingVisitor);
+        $traverser->traverse($nodes);
 
         /** @var Node\Stmt\ClassLike[] $classLikeNodes */
         $classLikeNodes = $findingVisitor->getFoundNodes();

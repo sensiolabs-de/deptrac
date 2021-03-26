@@ -3,9 +3,12 @@
 declare(strict_types=1);
 
 use PhpParser\Parser;
+use PHPStan\BetterReflection\BetterReflection;
+use PHPStan\BetterReflection\SourceLocator\Ast\Parser\MemoizingParser;
 use Qossmic\Deptrac\Analyser;
 use Qossmic\Deptrac\AstRunner\AstParser\AstFileReferenceCache;
 use Qossmic\Deptrac\AstRunner\AstParser\AstFileReferenceInMemoryCache;
+use Qossmic\Deptrac\AstRunner\AstParser\BetterReflection\Factory;
 use Qossmic\Deptrac\AstRunner\AstParser\NikicPhpParser\NikicPhpParser;
 use Qossmic\Deptrac\AstRunner\AstParser\NikicPhpParser\ParserFactory;
 use Qossmic\Deptrac\AstRunner\AstRunner;
@@ -71,6 +74,11 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(Parser::class)
         ->factory([ParserFactory::class, 'createParser']);
+
+    $services
+        ->set(MemoizingParser::class)
+        ->decorate(Parser::class)
+        ->args([service('.inner')]);
 
     $services
         ->set(NikicPhpParser::class)
@@ -212,4 +220,13 @@ return static function (ContainerConfigurator $container): void {
             service(OutputFormatterFactory::class),
         ])
         ->public();
+
+    /* better reflection */
+    $services
+        ->set(Factory::class)
+        ->args([service(Parser::class)]);
+
+    $services
+        ->set(BetterReflection::class)
+        ->factory([Factory::class, 'create']);
 };

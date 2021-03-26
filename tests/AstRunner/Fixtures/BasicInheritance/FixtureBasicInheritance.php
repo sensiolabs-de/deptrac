@@ -1,9 +1,9 @@
 <?php 
 
-namespace Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures;
+namespace Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance;
 
-final class FixtureBasicInheritanceA { }
-final class FixtureBasicInheritanceB extends FixtureBasicInheritanceA { }
-final class FixtureBasicInheritanceC extends FixtureBasicInheritanceB { }
-final class FixtureBasicInheritanceD extends FixtureBasicInheritanceC { }
-final class FixtureBasicInheritanceE extends FixtureBasicInheritanceD { }
+class FixtureBasicInheritanceA { }
+class FixtureBasicInheritanceB extends FixtureBasicInheritanceA { }
+class FixtureBasicInheritanceC extends FixtureBasicInheritanceB { }
+class FixtureBasicInheritanceD extends FixtureBasicInheritanceC { }
+class FixtureBasicInheritanceE extends FixtureBasicInheritanceD { }

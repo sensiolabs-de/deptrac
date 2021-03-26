@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2368fdddfb8c3dfa6521d5a637e2f004",
+    "content-hash": "8582b819444a81f1f7e467647ad9a1d7",
     "packages": [
         {
             "name": "clue/graph",
@@ -153,25 +153,26 @@
         },
         {
             "name": "jetbrains/phpstorm-stubs",
-            "version": "v2020.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JetBrains/phpstorm-stubs.git",
-                "reference": "55746ac77eecd0cd757b52151b9df9002da554af"
+                "reference": "5c2d08318c95ce2d8e6badbbb18fa2c726b9fadd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JetBrains/phpstorm-stubs/zipball/55746ac77eecd0cd757b52151b9df9002da554af",
-                "reference": "55746ac77eecd0cd757b52151b9df9002da554af",
+                "url": "https://api.github.com/repos/JetBrains/phpstorm-stubs/zipball/5c2d08318c95ce2d8e6badbbb18fa2c726b9fadd",
+                "reference": "5c2d08318c95ce2d8e6badbbb18fa2c726b9fadd",
                 "shasum": ""
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "nikic/php-parser": "^4",
-                "php": "^7.4",
-                "phpdocumentor/reflection-docblock": "dev-master",
-                "phpunit/phpunit": "^9"
+                "friendsofphp/php-cs-fixer": "@stable",
+                "nikic/php-parser": "@stable",
+                "php": "^8.0",
+                "phpdocumentor/reflection-docblock": "@stable",
+                "phpunit/phpunit": "@stable"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -194,7 +195,10 @@
                 "stubs",
                 "type"
             ],
-            "time": "2020-09-16T15:54:07+00:00"
+            "support": {
+                "source": "https://github.com/JetBrains/phpstorm-stubs/tree/master"
+            },
+            "time": "2021-03-17T16:38:46+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -246,7 +250,85 @@
                 "parser",
                 "php"
             ],
+            "support": {
+                "issues": "https://github.com/nikic/PHP-Parser/issues",
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.10.4"
+            },
             "time": "2020-12-20T10:01:03+00:00"
+        },
+        {
+            "name": "ondrejmirtes/better-reflection",
+            "version": "4.3.54",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ondrejmirtes/BetterReflection.git",
+                "reference": "1c72e79d454a4bbe0f8add1916619c5d7f2f6c3e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ondrejmirtes/BetterReflection/zipball/1c72e79d454a4bbe0f8add1916619c5d7f2f6c3e",
+                "reference": "1c72e79d454a4bbe0f8add1916619c5d7f2f6c3e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "jetbrains/phpstorm-stubs": "dev-master#0a73df114cdea7f30c8b5f6fbfbf8e6839a89e88",
+                "nikic/php-parser": "4.10.4",
+                "php": ">=7.1.0",
+                "phpdocumentor/reflection-docblock": "^4.3.4 || ^5.2.0",
+                "phpdocumentor/type-resolver": "^1.0.0",
+                "roave/signature": "1.1.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12.49",
+                "phpunit/phpunit": "^7.5.18",
+                "vimeo/psalm": "3.11.2"
+            },
+            "suggest": {
+                "composer/composer": "Required to use the ComposerSourceLocator"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\BetterReflection\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Titcumb",
+                    "email": "james@asgrim.com",
+                    "homepage": "https://github.com/asgrim"
+                },
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "https://ocramius.github.io/"
+                },
+                {
+                    "name": "Gary Hockin",
+                    "email": "gary@roave.com",
+                    "homepage": "https://github.com/geeh"
+                },
+                {
+                    "name": "Jaroslav Hanslík",
+                    "email": "kukulich@kukulich.cz",
+                    "homepage": "https://github.com/kukulich"
+                }
+            ],
+            "description": "Better Reflection - an improved code reflection API",
+            "support": {
+                "source": "https://github.com/ondrejmirtes/BetterReflection/tree/4.3.54"
+            },
+            "time": "2021-03-17T16:14:58+00:00"
         },
         {
             "name": "phpdocumentor/graphviz",
@@ -336,7 +418,67 @@
                 "reflection",
                 "static analysis"
             ],
+            "support": {
+                "issues": "https://github.com/phpDocumentor/ReflectionCommon/issues",
+                "source": "https://github.com/phpDocumentor/ReflectionCommon/tree/2.x"
+            },
             "time": "2020-06-27T09:03:43+00:00"
+        },
+        {
+            "name": "phpdocumentor/reflection-docblock",
+            "version": "5.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
+                "reference": "069a785b2141f5bcf49f3e353548dc1cce6df556"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/069a785b2141f5bcf49f3e353548dc1cce6df556",
+                "reference": "069a785b2141f5bcf49f3e353548dc1cce6df556",
+                "shasum": ""
+            },
+            "require": {
+                "ext-filter": "*",
+                "php": "^7.2 || ^8.0",
+                "phpdocumentor/reflection-common": "^2.2",
+                "phpdocumentor/type-resolver": "^1.3",
+                "webmozart/assert": "^1.9.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "~1.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "phpDocumentor\\Reflection\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike van Riel",
+                    "email": "me@mikevanriel.com"
+                },
+                {
+                    "name": "Jaap van Otterdijk",
+                    "email": "account@ijaap.nl"
+                }
+            ],
+            "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
+            "support": {
+                "issues": "https://github.com/phpDocumentor/ReflectionDocBlock/issues",
+                "source": "https://github.com/phpDocumentor/ReflectionDocBlock/tree/master"
+            },
+            "time": "2020-09-03T19:13:55+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -381,6 +523,10 @@
                 }
             ],
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
+            "support": {
+                "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.4.0"
+            },
             "time": "2020-09-17T18:55:26+00:00"
         },
         {
@@ -565,6 +711,45 @@
                 "psr-3"
             ],
             "time": "2020-03-23T09:12:05+00:00"
+        },
+        {
+            "name": "roave/signature",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Roave/Signature.git",
+                "reference": "c4e8a59946bad694ab5682a76e7884a9157a8a2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Roave/Signature/zipball/c4e8a59946bad694ab5682a76e7884a9157a8a2c",
+                "reference": "c4e8a59946bad694ab5682a76e7884a9157a8a2c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^7.2"
+            },
+            "require-dev": {
+                "infection/infection": "^0.7.1",
+                "phpunit/phpunit": "^7.0",
+                "squizlabs/php_codesniffer": "^3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Roave\\Signature\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Sign and verify stuff",
+            "support": {
+                "issues": "https://github.com/Roave/Signature/issues",
+                "source": "https://github.com/Roave/Signature/tree/1.1.0"
+            },
+            "time": "2020-10-01T07:27:11+00:00"
         },
         {
             "name": "symfony/config",
@@ -1284,6 +1469,9 @@
                 "polyfill",
                 "portable"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.22.1"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -1919,12 +2107,72 @@
                 }
             ],
             "time": "2021-03-06T07:59:01+00:00"
+        },
+        {
+            "name": "webmozart/assert",
+            "version": "1.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webmozarts/assert.git",
+                "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/6964c76c7804814a842473e0c8fd15bab0f18e25",
+                "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0",
+                "symfony/polyfill-ctype": "^1.8"
+            },
+            "conflict": {
+                "phpstan/phpstan": "<0.12.20",
+                "vimeo/psalm": "<4.6.1 || 4.6.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5.13"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.10-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Webmozart\\Assert\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                }
+            ],
+            "description": "Assertions to validate method input/output with nice error messages.",
+            "keywords": [
+                "assert",
+                "check",
+                "validate"
+            ],
+            "support": {
+                "issues": "https://github.com/webmozarts/assert/issues",
+                "source": "https://github.com/webmozarts/assert/tree/1.10.0"
+            },
+            "time": "2021-03-09T10:59:23+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "jetbrains/phpstorm-stubs": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
@@ -1935,5 +2183,5 @@
     "platform-overrides": {
         "php": "7.2.5"
     },
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

@@ -13,24 +13,24 @@ use Qossmic\Deptrac\AstRunner\AstParser\NikicPhpParser\ParserFactory;
 use Qossmic\Deptrac\AstRunner\AstRunner;
 use Qossmic\Deptrac\AstRunner\Resolver\TypeResolver;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceA;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceB;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceC;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceD;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceE;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceA;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceB;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceC;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceD;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceE;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceWithNoiseA;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceWithNoiseB;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceWithNoiseC;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA1;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA2;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceB;
-use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceC;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceA;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceB;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceC;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceD;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceE;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceA;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceB;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceC;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceD;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceE;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceWithNoiseA;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceWithNoiseB;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceWithNoiseC;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA1;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA2;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceB;
+use Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceC;
 
 final class AstMapFlattenGeneratorTest extends TestCase
 {
@@ -77,23 +77,23 @@ final class AstMapFlattenGeneratorTest extends TestCase
         );
 
         self::assertArrayValuesEquals(
-            ['Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceA::6 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceB::7 (Extends))'],
+            ['Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceA::6 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceB::7 (Extends))'],
             $this->getInheritedInherits(FixtureBasicInheritanceC::class, $astMap)
         );
 
         self::assertArrayValuesEquals(
             [
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceA::6 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceC::8 (Extends) -> Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceB::7 (Extends))',
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceB::7 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceC::8 (Extends))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceA::6 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceC::8 (Extends) -> Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceB::7 (Extends))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceB::7 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceC::8 (Extends))',
             ],
             $this->getInheritedInherits(FixtureBasicInheritanceD::class, $astMap)
         );
 
         self::assertArrayValuesEquals(
             [
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceA::6 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceD::9 (Extends) -> Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceC::8 (Extends) -> Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceB::7 (Extends))',
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceB::7 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceD::9 (Extends) -> Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceC::8 (Extends))',
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceC::8 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceD::9 (Extends))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceA::6 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceD::9 (Extends) -> Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceC::8 (Extends) -> Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceB::7 (Extends))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceB::7 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceD::9 (Extends) -> Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceC::8 (Extends))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceC::8 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceD::9 (Extends))',
             ],
             $this->getInheritedInherits(FixtureBasicInheritanceE::class, $astMap)
         );
@@ -114,23 +114,23 @@ final class AstMapFlattenGeneratorTest extends TestCase
         );
 
         self::assertArrayValuesEquals(
-            ['Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceA::6 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceB::7 (Implements))'],
+            ['Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceA::6 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceB::7 (Implements))'],
             $this->getInheritedInherits(FixtureBasicInheritanceInterfaceC::class, $astMap)
         );
 
         self::assertArrayValuesEquals(
             [
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceA::6 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceC::8 (Implements) -> Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceB::7 (Implements))',
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceB::7 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceC::8 (Implements))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceA::6 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceC::8 (Implements) -> Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceB::7 (Implements))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceB::7 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceC::8 (Implements))',
             ],
             $this->getInheritedInherits(FixtureBasicInheritanceInterfaceD::class, $astMap)
         );
 
         self::assertArrayValuesEquals(
             [
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceA::6 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceD::9 (Implements) -> Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceC::8 (Implements) -> Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceB::7 (Implements))',
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceB::7 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceD::9 (Implements) -> Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceC::8 (Implements))',
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceC::8 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceInterfaceD::9 (Implements))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceA::6 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceD::9 (Implements) -> Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceC::8 (Implements) -> Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceB::7 (Implements))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceB::7 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceD::9 (Implements) -> Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceC::8 (Implements))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceC::8 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceInterfaceD::9 (Implements))',
             ],
             $this->getInheritedInherits(FixtureBasicInheritanceInterfaceE::class, $astMap)
         );
@@ -157,18 +157,18 @@ final class AstMapFlattenGeneratorTest extends TestCase
 
         self::assertArrayValuesEquals(
             [
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA1::7 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA::8 (Implements))',
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA2::7 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA::8 (Implements))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA1::7 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA::8 (Implements))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA2::7 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA::8 (Implements))',
             ],
             $this->getInheritedInherits(MultipleInteritanceB::class, $astMap)
         );
 
         self::assertArrayValuesEquals(
             [
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA1::7 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceB::9 (Implements) -> Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA::8 (Implements))',
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA1::8 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceB::9 (Implements))',
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA2::7 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceB::9 (Implements) -> Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA::8 (Implements))',
-                'Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceA::8 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\MultipleInteritanceB::9 (Implements))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA1::7 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceB::9 (Implements) -> Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA::8 (Implements))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA1::8 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceB::9 (Implements))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA2::7 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceB::9 (Implements) -> Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA::8 (Implements))',
+                'Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceA::8 (Implements) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\MultipleInteritanceB::9 (Implements))',
             ],
             $this->getInheritedInherits(MultipleInteritanceC::class, $astMap)
         );
@@ -189,7 +189,7 @@ final class AstMapFlattenGeneratorTest extends TestCase
         );
 
         self::assertArrayValuesEquals(
-            ['Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceWithNoiseA::18 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\FixtureBasicInheritanceWithNoiseB::19 (Extends))'],
+            ['Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceWithNoiseA::18 (Extends) (path: Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\FixtureBasicInheritanceWithNoiseB::19 (Extends))'],
             $this->getInheritedInherits(FixtureBasicInheritanceWithNoiseC::class, $astMap)
         );
     }

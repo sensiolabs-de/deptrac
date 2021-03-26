@@ -1,6 +1,6 @@
 <?php 
 
-namespace Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\BasicDependency;
+namespace Tests\Qossmic\Deptrac\AstRunner\Fixtures\BasicInheritance\BasicDependency;
 
 trait BasicDependencyTraitA {}
 trait BasicDependencyTraitB {}

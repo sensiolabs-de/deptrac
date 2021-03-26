@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.x-dev@">
+  <file src="src/AstRunner/AstParser/BetterReflection/Factory.php">
+    <InternalClass occurrences="3">
+      <code>new PhpStormStubsSourceStubber($this-&gt;parser, BetterReflection::$phpVersion)</code>
+      <code>new ReflectionSourceStubber()</code>
+    </InternalClass>
+    <MixedArgument occurrences="1">
+      <code>require $composerAutoloadFile</code>
+    </MixedArgument>
+    <UnresolvableInclude occurrences="1">
+      <code>require $composerAutoloadFile</code>
+    </UnresolvableInclude>
+  </file>
   <file src="src/AstRunner/AstParser/NikicPhpParser/ClassReferenceVisitor.php">
     <MixedArgument occurrences="1">
       <code>$className</code>
