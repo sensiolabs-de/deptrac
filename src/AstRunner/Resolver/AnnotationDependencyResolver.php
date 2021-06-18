@@ -31,6 +31,20 @@ class AnnotationDependencyResolver implements ClassDependencyResolver
 
     public function processNode(Node $node, ClassReferenceBuilder $classReferenceBuilder, TypeScope $typeScope): void
     {
+        if ($node instanceof Node\Stmt\ClassLike) {
+            $docComment = $node->getDocComment();
+            if (!$docComment instanceof Doc) {
+                return;
+            }
+
+            $tokens = new TokenIterator($this->lexer->tokenize($docComment->getText()));
+            $docNode = $this->docParser->parse($tokens);
+
+            if (count($docNode->getTagsByName('@internal')) > 0) {
+                $classReferenceBuilder->markAsInternal();
+            }
+        }
+
         if (!$node instanceof Node\Stmt\Property
             && !$node instanceof Node\Expr\Variable
             && !$node instanceof Node\Stmt\ClassMethod

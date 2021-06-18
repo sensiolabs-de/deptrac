@@ -24,6 +24,7 @@ use Qossmic\Deptrac\Collector\ExtendsCollector;
 use Qossmic\Deptrac\Collector\ImplementsCollector;
 use Qossmic\Deptrac\Collector\InheritanceLevelCollector;
 use Qossmic\Deptrac\Collector\InheritsCollector;
+use Qossmic\Deptrac\Collector\MarkedInternalCollector;
 use Qossmic\Deptrac\Collector\MethodCollector;
 use Qossmic\Deptrac\Collector\Registry;
 use Qossmic\Deptrac\Collector\UsesCollector;
@@ -221,6 +222,9 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(MethodCollector::class)
         ->args([service(NikicPhpParser::class)])
+        ->tag('collector');
+    $services
+        ->set(MarkedInternalCollector::class)
         ->tag('collector');
 
     /* Dependency resolving */

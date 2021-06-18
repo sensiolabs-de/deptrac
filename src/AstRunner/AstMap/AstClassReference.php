@@ -18,15 +18,19 @@ class AstClassReference
     /** @var AstInherit[] */
     private $inherits;
 
+    /** @var bool */
+    private $internal;
+
     /**
      * @param AstInherit[]    $inherits
      * @param AstDependency[] $dependencies
      */
-    public function __construct(ClassLikeName $classLikeName, array $inherits = [], array $dependencies = [])
+    public function __construct(ClassLikeName $classLikeName, array $inherits = [], array $dependencies = [], bool $internal = false)
     {
         $this->classLikeName = $classLikeName;
         $this->dependencies = $dependencies;
         $this->inherits = $inherits;
+        $this->internal = $internal;
     }
 
     public function withFileReference(AstFileReference $astFileReference): self
@@ -61,5 +65,10 @@ class AstClassReference
     public function getInherits(): array
     {
         return $this->inherits;
+    }
+
+    public function isInternal(): bool
+    {
+        return $this->internal;
     }
 }

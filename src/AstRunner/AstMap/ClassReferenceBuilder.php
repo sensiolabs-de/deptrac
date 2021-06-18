@@ -18,6 +18,9 @@ final class ClassReferenceBuilder
     /** @var AstDependency[] */
     private $dependencies = [];
 
+    /** @var bool */
+    private $internal = false;
+
     private function __construct(string $filepath, string $classLikeName)
     {
         $this->filepath = $filepath;
@@ -35,7 +38,8 @@ final class ClassReferenceBuilder
         return new AstClassReference(
             ClassLikeName::fromFQCN($this->classLikeName),
             $this->inherits,
-            $this->dependencies
+            $this->dependencies,
+            $this->internal
         );
     }
 
@@ -185,6 +189,13 @@ final class ClassReferenceBuilder
             ClassLikeName::fromFQCN($classLikeName),
             FileOccurrence::fromFilepath($this->filepath, $occursAtLine)
         );
+
+        return $this;
+    }
+
+    public function markAsInternal(): self
+    {
+        $this->internal = true;
 
         return $this;
     }
