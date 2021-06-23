@@ -35,10 +35,10 @@ php-cs-fix:																		## run cs fixer
 	PHP_CS_FIXER_FUTURE_MODE=1 $(PHP_CS_FIXER_BIN) fix --allow-risky=yes
 
 phpstan:
-	$(PHPSTAN_BIN) analyse
+	$(PHPSTAN_BIN) analyze
 
 psalm:
-	$(PSALM_BIN) analyse
+	$(PSALM_BIN) analyze
 
 infection: tools-install composer-install
 	$(INFECTION_BIN) --threads=$(shell nproc || sysctl -n hw.ncpu || 1) --test-framework-options='--testsuite=Tests' --only-covered --min-msi=83

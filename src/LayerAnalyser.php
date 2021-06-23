@@ -9,7 +9,7 @@ use Qossmic\Deptrac\AstRunner\AstRunner;
 use Qossmic\Deptrac\Configuration\Configuration;
 use Qossmic\Deptrac\Dependency\Resolver;
 
-class LayerAnalyser
+class LayerAnalyzer
 {
     private $astRunner;
     private $fileResolver;
@@ -31,7 +31,7 @@ class LayerAnalyser
     /**
      * @return string[]
      */
-    public function analyse(Configuration $configuration, string $layer): array
+    public function analyze(Configuration $configuration, string $layer): array
     {
         $astMap = $this->astRunner->createAstMapByFiles($this->fileResolver->resolve($configuration), $configuration->getAnalyzer());
         $dependencyResult = $this->resolver->resolve($astMap);

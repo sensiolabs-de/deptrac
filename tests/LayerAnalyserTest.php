@@ -5,19 +5,19 @@ namespace Tests\Qossmic\Deptrac;
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Configuration\Configuration;
 use Qossmic\Deptrac\ContainerBuilder;
-use Qossmic\Deptrac\LayerAnalyser;
-use Tests\Qossmic\Deptrac\Fixtures\LayerAnalyser\ClassBar;
-use Tests\Qossmic\Deptrac\Fixtures\LayerAnalyser\ClassFoo;
+use Qossmic\Deptrac\LayerAnalyzer;
+use Tests\Qossmic\Deptrac\Fixtures\LayerAnalyzer\ClassBar;
+use Tests\Qossmic\Deptrac\Fixtures\LayerAnalyzer\ClassFoo;
 
 /**
- * @covers \Qossmic\Deptrac\LayerAnalyser
+ * @covers \Qossmic\Deptrac\LayerAnalyzer
  */
-class LayerAnalyserTest extends TestCase
+class LayerAnalyzerTest extends TestCase
 {
     public function testAnalyze(): void
     {
         $configuration = Configuration::fromArray([
-            'paths' => [__DIR__.'/Fixtures/LayerAnalyser/'],
+            'paths' => [__DIR__.'/Fixtures/LayerAnalyzer/'],
             'layers' => [
                 [
                     'name' => 'LayerFoo',
@@ -33,8 +33,8 @@ class LayerAnalyserTest extends TestCase
         ]);
 
         $container = (new ContainerBuilder(__DIR__))->build();
-        $analyser = $container->get(LayerAnalyser::class);
-        $classLikes = $analyser->analyse($configuration, 'LayerFoo');
+        $analyzer = $container->get(LayerAnalyzer::class);
+        $classLikes = $analyzer->analyze($configuration, 'LayerFoo');
 
         self::assertSame(
             [

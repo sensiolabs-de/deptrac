@@ -8,7 +8,7 @@ use Qossmic\Deptrac\AstRunner\AstMap\ClassLikeName;
 use Qossmic\Deptrac\AstRunner\AstRunner;
 use Qossmic\Deptrac\Configuration\Configuration;
 
-class ClassLikeAnalyser
+class ClassLikeAnalyzer
 {
     private $astRunner;
     private $fileResolver;
@@ -27,7 +27,7 @@ class ClassLikeAnalyser
     /**
      * @return string[]
      */
-    public function analyse(Configuration $configuration, ClassLikeName $classLikeName): array
+    public function analyze(Configuration $configuration, ClassLikeName $classLikeName): array
     {
         $astMap = $this->astRunner->createAstMapByFiles($this->fileResolver->resolve($configuration), $configuration->getAnalyzer());
 

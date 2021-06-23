@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use PhpParser\Parser;
-use Qossmic\Deptrac\Analyser;
+use Qossmic\Deptrac\Analyzer;
 use Qossmic\Deptrac\AstRunner\AstParser\AstFileReferenceCache;
 use Qossmic\Deptrac\AstRunner\AstParser\AstFileReferenceInMemoryCache;
 use Qossmic\Deptrac\AstRunner\AstParser\NikicPhpParser\NikicPhpParser;
@@ -14,7 +14,7 @@ use Qossmic\Deptrac\AstRunner\Resolver\AnonymousClassResolver;
 use Qossmic\Deptrac\AstRunner\Resolver\ClassConstantResolver;
 use Qossmic\Deptrac\AstRunner\Resolver\PropertyTypeResolver;
 use Qossmic\Deptrac\AstRunner\Resolver\TypeResolver;
-use Qossmic\Deptrac\ClassLikeAnalyser;
+use Qossmic\Deptrac\ClassLikeAnalyzer;
 use Qossmic\Deptrac\ClassLikeLayerResolverFactory;
 use Qossmic\Deptrac\Collector\BoolCollector;
 use Qossmic\Deptrac\Collector\ClassNameCollector;
@@ -41,7 +41,7 @@ use Qossmic\Deptrac\Dependency\Resolver;
 use Qossmic\Deptrac\DependencyEmitter\BasicDependencyEmitter;
 use Qossmic\Deptrac\DependencyEmitter\InheritanceDependencyEmitter;
 use Qossmic\Deptrac\FileResolver;
-use Qossmic\Deptrac\LayerAnalyser;
+use Qossmic\Deptrac\LayerAnalyzer;
 use Qossmic\Deptrac\OutputFormatter\BaselineOutputFormatter;
 use Qossmic\Deptrac\OutputFormatter\ConsoleOutputFormatter;
 use Qossmic\Deptrac\OutputFormatter\GithubActionsOutputFormatter;
@@ -110,7 +110,7 @@ return static function (ContainerConfigurator $container): void {
         ]);
 
     $services
-        ->set(Analyser::class)
+        ->set(Analyzer::class)
         ->args([
             service(AstRunner::class),
             service(FileResolver::class),
@@ -120,7 +120,7 @@ return static function (ContainerConfigurator $container): void {
         ]);
 
     $services
-        ->set(ClassLikeAnalyser::class)
+        ->set(ClassLikeAnalyzer::class)
         ->args([
             service(AstRunner::class),
             service(FileResolver::class),
@@ -128,7 +128,7 @@ return static function (ContainerConfigurator $container): void {
         ]);
 
     $services
-        ->set(LayerAnalyser::class)
+        ->set(LayerAnalyzer::class)
         ->args([
             service(AstRunner::class),
             service(FileResolver::class),
@@ -247,7 +247,7 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(AnalyzeCommand::class)
         ->args([
-            service(Analyser::class),
+            service(Analyzer::class),
             service(Loader::class),
             service(EventDispatcher::class),
             service(OutputFormatterFactory::class),
@@ -256,14 +256,14 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(DebugClassLikeCommand::class)
         ->args([
-            service(ClassLikeAnalyser::class),
+            service(ClassLikeAnalyzer::class),
             service(Loader::class),
         ]);
 
     $services
         ->set(DebugLayerCommand::class)
         ->args([
-            service(LayerAnalyser::class),
+            service(LayerAnalyzer::class),
             service(Loader::class),
         ]);
 

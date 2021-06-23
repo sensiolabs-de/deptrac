@@ -4,20 +4,20 @@ namespace Tests\Qossmic\Deptrac;
 
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\AstRunner\AstMap\ClassLikeName;
-use Qossmic\Deptrac\ClassLikeAnalyser;
+use Qossmic\Deptrac\ClassLikeAnalyzer;
 use Qossmic\Deptrac\Configuration\Configuration;
 use Qossmic\Deptrac\ContainerBuilder;
-use Tests\Qossmic\Deptrac\Fixtures\ClassLikeAnalyser\ClassFoo;
+use Tests\Qossmic\Deptrac\Fixtures\ClassLikeAnalyzer\ClassFoo;
 
 /**
- * @covers \Qossmic\Deptrac\ClassLikeAnalyser
+ * @covers \Qossmic\Deptrac\ClassLikeAnalyzer
  */
-class ClassLikeAnalyserTest extends TestCase
+class ClassLikeAnalyzerTest extends TestCase
 {
     public function testAnalyze(): void
     {
         $configuration = Configuration::fromArray([
-            'paths' => [__DIR__.'/Fixtures/ClassLikeAnalyser/'],
+            'paths' => [__DIR__.'/Fixtures/ClassLikeAnalyzer/'],
             'layers' => [
                 [
                     'name' => 'LayerFoo',
@@ -33,8 +33,8 @@ class ClassLikeAnalyserTest extends TestCase
         ]);
 
         $container = (new ContainerBuilder(__DIR__))->build();
-        $analyser = $container->get(ClassLikeAnalyser::class);
-        $layers = $analyser->analyse($configuration, ClassLikeName::fromFQCN(ClassFoo::class));
+        $analyzer = $container->get(ClassLikeAnalyzer::class);
+        $layers = $analyzer->analyze($configuration, ClassLikeName::fromFQCN(ClassFoo::class));
 
         self::assertSame(['LayerFoo'], $layers);
     }

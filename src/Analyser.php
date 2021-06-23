@@ -7,7 +7,7 @@ use Qossmic\Deptrac\Configuration\Configuration;
 use Qossmic\Deptrac\Dependency\Resolver;
 use Qossmic\Deptrac\RulesetEngine\Context;
 
-class Analyser
+class Analyzer
 {
     private $astRunner;
     private $fileResolver;
@@ -29,7 +29,7 @@ class Analyser
         $this->classLikeLayerResolverFactory = $classLikeLayerResolverFactory;
     }
 
-    public function analyse(Configuration $configuration): Context
+    public function analyze(Configuration $configuration): Context
     {
         $astMap = $this->astRunner->createAstMapByFiles($this->fileResolver->resolve($configuration), $configuration->getAnalyzer());
         $dependencyResult = $this->resolver->resolve($astMap);

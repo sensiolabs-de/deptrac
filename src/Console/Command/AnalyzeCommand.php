@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Console\Command;
 
-use Qossmic\Deptrac\Analyser;
+use Qossmic\Deptrac\Analyzer;
 use Qossmic\Deptrac\Configuration\Loader as ConfigurationLoader;
 use Qossmic\Deptrac\Console\Command\Exception\SingleDepfileIsRequiredException;
 use Qossmic\Deptrac\Console\Symfony\Style;
@@ -27,8 +27,8 @@ class AnalyzeCommand extends Command
     public const OPTION_FAIL_ON_UNCOVERED = 'fail-on-uncovered';
     public const OPTION_REPORT_SKIPPED = 'report-skipped';
 
-    /** @var Analyser */
-    private $analyser;
+    /** @var Analyzer */
+    private $analyzer;
     /** @var ConfigurationLoader */
     private $configurationLoader;
     /** @var EventDispatcherInterface */
@@ -37,12 +37,12 @@ class AnalyzeCommand extends Command
     private $formatterFactory;
 
     public function __construct(
-        Analyser $analyser,
+        Analyzer $analyzer,
         ConfigurationLoader $configurationLoader,
         EventDispatcherInterface $dispatcher,
         OutputFormatterFactory $formatterFactory
     ) {
-        $this->analyser = $analyser;
+        $this->analyzer = $analyzer;
         $this->configurationLoader = $configurationLoader;
         $this->dispatcher = $dispatcher;
         $this->formatterFactory = $formatterFactory;
@@ -97,7 +97,7 @@ class AnalyzeCommand extends Command
         }
 
         $this->printCollectViolations($symfonyOutput);
-        $context = $this->analyser->analyse($configuration);
+        $context = $this->analyzer->analyze($configuration);
 
         $this->printFormattingStart($symfonyOutput);
 

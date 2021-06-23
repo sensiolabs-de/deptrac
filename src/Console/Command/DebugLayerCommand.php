@@ -8,7 +8,7 @@ use Qossmic\Deptrac\Configuration\ConfigurationLayer;
 use Qossmic\Deptrac\Configuration\Loader;
 use Qossmic\Deptrac\Console\Command\Exception\SingleDepfileIsRequiredException;
 use Qossmic\Deptrac\Console\Symfony\Style;
-use Qossmic\Deptrac\LayerAnalyser;
+use Qossmic\Deptrac\LayerAnalyzer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,18 +19,18 @@ class DebugLayerCommand extends Command
 {
     protected static $defaultName = 'debug:layer';
 
-    /** @var LayerAnalyser */
-    private $analyser;
+    /** @var LayerAnalyzer */
+    private $analyzer;
     /** @var Loader */
     private $loader;
 
     public function __construct(
-        LayerAnalyser $analyser,
+        LayerAnalyzer $analyzer,
         Loader $loader
     ) {
         parent::__construct();
 
-        $this->analyser = $analyser;
+        $this->analyzer = $analyzer;
         $this->loader = $loader;
     }
 
@@ -65,7 +65,7 @@ class DebugLayerCommand extends Command
             return 1;
         }
 
-        $matchedLayers = $this->analyser->analyse($configuration, $layer);
+        $matchedLayers = $this->analyzer->analyze($configuration, $layer);
         natcasesort($matchedLayers);
 
         $output->writeln($matchedLayers);
