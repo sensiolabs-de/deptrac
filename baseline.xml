@@ -46,6 +46,11 @@
       <code>$v</code>
     </MixedAssignment>
   </file>
+  <file src="src/Collector/RegexCollector.php">
+    <InvalidArgument occurrences="1">
+      <code>static function () {}</code>
+    </InvalidArgument>
+  </file>
   <file src="src/Configuration/Configuration.php">
     <MixedArgument occurrences="7">
       <code>$options['analyzer']</code>

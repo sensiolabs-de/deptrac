@@ -8,7 +8,7 @@ use Qossmic\Deptrac\AstRunner\AstMap;
 use Qossmic\Deptrac\AstRunner\AstMap\AstClassReference;
 use Qossmic\Deptrac\AstRunner\AstParser\NikicPhpParser\NikicPhpParser;
 
-class MethodCollector implements CollectorInterface
+class MethodCollector extends RegexCollector implements CollectorInterface
 {
     private $nikicPhpParser;
 
@@ -28,7 +28,7 @@ class MethodCollector implements CollectorInterface
         AstMap $astMap,
         Registry $collectorRegistry
     ): bool {
-        $pattern = $this->getPattern($configuration);
+        $pattern = $this->getValidatedPattern($configuration);
 
         $classLike = $this->nikicPhpParser->getAstForClassReference($astClassReference);
 
@@ -45,10 +45,7 @@ class MethodCollector implements CollectorInterface
         return false;
     }
 
-    /**
-     * @param array<string, string|array> $configuration
-     */
-    private function getPattern(array $configuration): string
+    protected function getPattern(array $configuration): string
     {
         if (!isset($configuration['name']) || !is_string($configuration['name'])) {
             throw new \LogicException('MethodCollector needs the name configuration.');

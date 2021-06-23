@@ -111,6 +111,21 @@ final class MethodCollectorTest extends TestCase
         );
     }
 
+    public function testInvalidRegexParam(): void
+    {
+        $astClassReference = new AstClassReference(ClassLikeName::fromFQCN('foo'));
+        $parser = $this->createMock(NikicPhpParser::class);
+
+        $this->expectException(\LogicException::class);
+
+        (new MethodCollector($parser))->satisfy(
+            ['name' => '/'],
+            $astClassReference,
+            $this->createMock(AstMap::class),
+            $this->createMock(Registry::class)
+        );
+    }
+
     private function getClassMethod(string $name): \stdClass
     {
         $classMethod = new \stdClass();
