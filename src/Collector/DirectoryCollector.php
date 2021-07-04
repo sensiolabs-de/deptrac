@@ -8,7 +8,7 @@ use LogicException;
 use Qossmic\Deptrac\AstRunner\AstMap;
 use Qossmic\Deptrac\AstRunner\AstMap\AstClassReference;
 
-class DirectoryCollector implements CollectorInterface
+class DirectoryCollector extends RegexCollector implements CollectorInterface
 {
     public function getType(): string
     {
@@ -23,13 +23,10 @@ class DirectoryCollector implements CollectorInterface
     ): bool {
         $fileReference = $astClassReference->getFileReference();
 
-        return $fileReference && 1 === preg_match($this->getPattern($configuration), $fileReference->getFilepath());
+        return $fileReference && 1 === preg_match($this->getValidatedPattern($configuration), $fileReference->getFilepath());
     }
 
-    /**
-     * @param array<string, string|array> $configuration
-     */
-    private function getPattern(array $configuration): string
+    protected function getPattern(array $configuration): string
     {
         if (!isset($configuration['regex']) || !is_string($configuration['regex'])) {
             throw new LogicException('DirectoryCollector needs the regex configuration.');

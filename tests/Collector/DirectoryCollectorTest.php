@@ -58,4 +58,20 @@ final class DirectoryCollectorTest extends TestCase
             $this->createMock(Registry::class)
         );
     }
+
+    public function testInvalidRegexParam(): void
+    {
+        $fileReferenceBuilder = AstMap\FileReferenceBuilder::create('/some/path/to/file.php');
+        $fileReferenceBuilder->newClassLike('Test');
+        $fileReference = $fileReferenceBuilder->build();
+
+        $this->expectException(\LogicException::class);
+
+        (new DirectoryCollector())->satisfy(
+            ['regex' => '\\'],
+            $fileReference->getAstClassReferences()[0],
+            $this->createMock(AstMap::class),
+            $this->createMock(Registry::class)
+        );
+    }
 }

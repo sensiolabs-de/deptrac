@@ -50,4 +50,16 @@ final class ClassNameRegexCollectorTest extends TestCase
             $this->prophesize(Registry::class)->reveal()
         );
     }
+
+    public function testInvalidRegexParam(): void
+    {
+        $this->expectException(\LogicException::class);
+
+        (new ClassNameRegexCollector())->satisfy(
+            ['regex' => '/'],
+            new AstClassReference(AstMap\ClassLikeName::fromFQCN('Foo')),
+            $this->prophesize(AstMap::class)->reveal(),
+            $this->prophesize(Registry::class)->reveal()
+        );
+    }
 }
