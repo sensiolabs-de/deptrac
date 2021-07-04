@@ -248,7 +248,7 @@ final class RulesetEngineTest extends TestCase
         $context = (new RulesetEngine())->process(
             $dependencyResult,
             $classLikeLayerResolver->reveal(),
-            $configuration
+            $configuration->getRuleset()
         );
 
         self::assertCount($expectedCount, $context->violations());
@@ -316,7 +316,7 @@ final class RulesetEngineTest extends TestCase
         $context = (new RulesetEngine())->process(
             $dependencyResult,
             $classLikeLayerResolver->reveal(),
-            $configuration
+            $configuration->getRuleset()
         );
 
         self::assertCount($expectedSkippedViolationCount, $context->skippedViolations());
@@ -371,7 +371,7 @@ final class RulesetEngineTest extends TestCase
         $context = (new RulesetEngine())->process(
             $dependencyResult,
             $classLikeLayerResolver->reveal(),
-            $configuration
+            $configuration->getRuleset()
         );
 
         self::assertCount($expectedUncoveredCount, $context->uncovered());

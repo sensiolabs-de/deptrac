@@ -35,6 +35,6 @@ class Analyser
         $dependencyResult = $this->resolver->resolve($astMap);
         $classLikeLayerResolver = $this->classLikeLayerResolverFactory->create($configuration, $astMap);
 
-        return $this->rulesetEngine->process($dependencyResult, $classLikeLayerResolver, $configuration);
+        return $this->rulesetEngine->process($dependencyResult, $classLikeLayerResolver, $configuration->getRuleset());
     }
 }

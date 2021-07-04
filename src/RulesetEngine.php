@@ -7,7 +7,7 @@ namespace Qossmic\Deptrac;
 use InvalidArgumentException;
 use JetBrains\PHPStormStub\PhpStormStubsMap;
 use Qossmic\Deptrac\AstRunner\AstMap\ClassLikeName;
-use Qossmic\Deptrac\Configuration\Configuration;
+use Qossmic\Deptrac\Configuration\ConfigurationRuleset;
 use Qossmic\Deptrac\Dependency\Result;
 use Qossmic\Deptrac\RulesetEngine\Allowed;
 use Qossmic\Deptrac\RulesetEngine\Context;
@@ -23,14 +23,13 @@ class RulesetEngine
     public function process(
         Result $dependencyResult,
         ClassLikeLayerResolverInterface $classLikeLayerResolver,
-        Configuration $configuration
+        ConfigurationRuleset $configurationRuleset
     ): Context {
         $rules = [];
         $warnings = [];
         $errors = [];
 
-        $configurationRuleset = $configuration->getRuleset();
-        $skippedViolationHelper = new SkippedViolationHelper($configuration->getSkipViolations());
+        $skippedViolationHelper = new SkippedViolationHelper($configurationRuleset->getSkipViolations());
 
         foreach ($dependencyResult->getDependenciesAndInheritDependencies() as $dependency) {
             $layerNames = $classLikeLayerResolver->getLayersByClassLikeName($dependency->getClassLikeNameA());
@@ -51,7 +50,7 @@ class RulesetEngine
                 $layersNamesClassB = $classLikeLayerResolver->getLayersByClassLikeName($dependency->getClassLikeNameB());
 
                 if (0 === count($layersNamesClassB)) {
-                    if (!$this->ignoreUncoveredInternalClass($configuration, $dependency->getClassLikeNameB())) {
+                    if (!$this->ignoreUncoveredInternalClass($configurationRuleset, $dependency->getClassLikeNameB())) {
                         $rules[] = new Uncovered($dependency, $layerName);
                     }
                     continue;
@@ -86,8 +85,8 @@ class RulesetEngine
         return new Context($rules, $errors, $warnings);
     }
 
-    private function ignoreUncoveredInternalClass(Configuration $configuration, ClassLikeName $classLikeName): bool
+    private function ignoreUncoveredInternalClass(ConfigurationRuleset $configurationRuleset, ClassLikeName $classLikeName): bool
     {
-        return $configuration->ignoreUncoveredInternalClasses() && isset(PhpStormStubsMap::CLASSES[$classLikeName->toString()]);
+        return $configurationRuleset->ignoreUncoveredInternalClasses() && isset(PhpStormStubsMap::CLASSES[$classLikeName->toString()]);
     }
 }

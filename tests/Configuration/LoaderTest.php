@@ -74,7 +74,7 @@ final class LoaderTest extends TestCase
                     'BarClass',
                 ],
             ],
-            $configuration->getSkipViolations()->all()
+            $configuration->getRuleset()->getSkipViolations()->all()
         );
     }
 

@@ -11,20 +11,36 @@ final class ConfigurationRuleset
     /** @var array<string, string[]> */
     private array $layerMap;
 
+    private ConfigurationSkippedViolation $skipViolations;
+
+    private bool $ignoreUncoveredInternalClasses;
+
     /**
      * @param array<string, string[]> $arr
+     * @param ConfigurationSkippedViolation $skippedViolation
+     * @param bool $ignoreUncoveredInternalClasses
      */
-    public static function fromArray(array $arr): self
-    {
-        return new self($arr);
+    public static function fromOptions(
+        array $arr,
+        ConfigurationSkippedViolation $skippedViolation,
+        bool $ignoreUncoveredInternalClasses
+    ): self {
+        return new self($arr, $skippedViolation, $ignoreUncoveredInternalClasses);
     }
 
     /**
      * @param array<string, string[]> $layerMap
+     * @param ConfigurationSkippedViolation $skippedViolation
+     * @param bool $ignoreUncoveredInternalClasses
      */
-    private function __construct(array $layerMap)
-    {
+    private function __construct(
+        array $layerMap,
+        ConfigurationSkippedViolation $skippedViolation,
+        bool $ignoreUncoveredInternalClasses
+    ) {
         $this->layerMap = $layerMap;
+        $this->skipViolations = $skippedViolation;
+        $this->ignoreUncoveredInternalClasses = $ignoreUncoveredInternalClasses;
     }
 
     /**
@@ -35,6 +51,16 @@ final class ConfigurationRuleset
     public function getAllowedDependencies(string $layerName): array
     {
         return array_values(array_unique($this->getTransitiveDependencies($layerName, [])));
+    }
+
+    public function getSkipViolations(): ConfigurationSkippedViolation
+    {
+        return $this->skipViolations;
+    }
+
+    public function ignoreUncoveredInternalClasses(): bool
+    {
+        return $this->ignoreUncoveredInternalClasses;
     }
 
     /**

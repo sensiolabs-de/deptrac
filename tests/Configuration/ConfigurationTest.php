@@ -128,7 +128,7 @@ final class ConfigurationTest extends TestCase
         self::assertEquals(['foo', 'bar'], $configuration->getPaths());
         self::assertEquals(['foo2', 'bar2'], $configuration->getExcludeFiles());
         self::assertEquals(['xx', 'yy'], $configuration->getRuleset()->getAllowedDependencies('some_name'));
-        self::assertTrue($configuration->ignoreUncoveredInternalClasses());
+        self::assertTrue($configuration->getRuleset()->ignoreUncoveredInternalClasses());
     }
 
     public function testExcludedFilesAreOptional(): void
@@ -166,40 +166,5 @@ final class ConfigurationTest extends TestCase
         ]);
 
         self::assertEquals([], $configuration->getExcludeFiles());
-    }
-
-    public function testSkipViolations(): void
-    {
-        $configuration = Configuration::fromArray([
-            'layers' => [],
-            'paths' => [],
-            'exclude_files' => null,
-            'ruleset' => [],
-            'skip_violations' => [
-                'FooClass' => [
-                    'BarClass',
-                    'AnotherClass',
-                ],
-            ],
-        ]);
-
-        self::assertSame([
-            'FooClass' => [
-                'BarClass',
-                'AnotherClass',
-            ],
-        ], $configuration->getSkipViolations()->all());
-    }
-
-    public function testIgnoreUncoveredInternalClassesSetToFalse(): void
-    {
-        $configuration = Configuration::fromArray([
-            'layers' => [],
-            'paths' => [],
-            'ruleset' => [],
-            'ignore_uncovered_internal_classes' => false,
-        ]);
-
-        self::assertFalse($configuration->ignoreUncoveredInternalClasses());
     }
 }
