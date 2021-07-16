@@ -8,38 +8,25 @@ use Qossmic\Deptrac\AstRunner\AstMap;
 use Qossmic\Deptrac\Dependency\Dependency;
 use Qossmic\Deptrac\Dependency\Result;
 
-class ClassDependencyEmitter implements DependencyEmitterInterface
+class ClassSuperglobalDependencyEmitter implements DependencyEmitterInterface
 {
     public function getName(): string
     {
-        return 'ClassDependencyEmitter';
+        return 'ClassSuperglobalDependencyEmitter';
     }
 
     public function applyDependencies(AstMap $astMap, Result $dependencyResult): void
     {
         foreach ($astMap->getAstClassReferences() as $classReference) {
-            $classLikeName = $classReference->getTokenName();
-
             foreach ($classReference->getDependencies() as $dependency) {
-                if (AstMap\AstDependency::SUPERGLOBAL_VARIABLE === $dependency->getType()) {
+                if (AstMap\AstDependency::SUPERGLOBAL_VARIABLE !== $dependency->getType()) {
                     continue;
                 }
-
                 $dependencyResult->addDependency(
                     new Dependency(
-                        $classLikeName,
+                        $classReference->getTokenName(),
                         $dependency->getTokenName(),
                         $dependency->getFileOccurrence()
-                    )
-                );
-            }
-
-            foreach ($astMap->getClassInherits($classLikeName) as $inherit) {
-                $dependencyResult->addDependency(
-                    new Dependency(
-                        $classLikeName,
-                        $inherit->getClassLikeName(),
-                        $inherit->getFileOccurrence()
                     )
                 );
             }

@@ -23,7 +23,7 @@ class RulesetEngine
 {
     public function process(
         Result $dependencyResult,
-        ClassLikeLayerResolverInterface $classLikeLayerResolver,
+        TokenLayerResolverInterface $tokenLayerResolver,
         Configuration $configuration
     ): Context {
         $rules = [];
@@ -35,7 +35,7 @@ class RulesetEngine
 
         foreach ($dependencyResult->getDependenciesAndInheritDependencies() as $dependency) {
             $dependant = $dependency->getDependant();
-            $dependantLayerNames = $this->getLayerNames($dependant, $classLikeLayerResolver);
+            $dependantLayerNames = $tokenLayerResolver->getLayersByTokenName($dependant);
 
             if (!isset($warnings[$dependant->toString()]) && count($dependantLayerNames) > 1) {
                 $warnings[$dependant->toString()] = Warning::tokenIsInMoreThanOneLayer($dependant, $dependantLayerNames);
@@ -50,7 +50,7 @@ class RulesetEngine
                 }
 
                 $dependee = $dependency->getDependee();
-                $dependeeLayerNames = $this->getLayerNames($dependee, $classLikeLayerResolver);
+                $dependeeLayerNames = $tokenLayerResolver->getLayersByTokenName($dependee);
 
                 if (0 === count($dependeeLayerNames)) {
                     if ($dependee instanceof ClassLikeName && !$this->ignoreUncoveredInternalClass($configuration, $dependee)) {
@@ -91,13 +91,5 @@ class RulesetEngine
     private function ignoreUncoveredInternalClass(Configuration $configuration, TokenName $tokenName): bool
     {
         return !$tokenName instanceof ClassLikeName || ($configuration->ignoreUncoveredInternalClasses() && isset(PhpStormStubsMap::CLASSES[$tokenName->toString()]));
-    }
-
-    /**
-     * @return string[]
-     */
-    private function getLayerNames(TokenName $tokenName, ClassLikeLayerResolverInterface $classLikeLayerResolver): array
-    {
-        return $tokenName instanceof ClassLikeName ? $classLikeLayerResolver->getLayersByClassLikeName($tokenName) : [];
     }
 }

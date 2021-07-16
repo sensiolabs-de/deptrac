@@ -9,6 +9,24 @@ namespace Qossmic\Deptrac\AstRunner\AstMap;
  */
 class AstDependency
 {
+    //TODO: Replace with ENUM in PHP 8.1
+    public const USE = 'use';
+    public const RETURN_TYPE = 'returntype';
+    public const PARAMETER = 'parameter';
+    public const NEW = 'new';
+    public const STATIC_PROPERTY = 'static_property';
+    public const STATIC_METHOD = 'static_method';
+    public const INSTANCEOF = 'instanceof';
+    public const CATCH = 'catch';
+    public const VARIABLE = 'variable';
+    public const THROW = 'throw';
+    public const CONST = 'const';
+    public const ANONYMOUS_CLASS_EXTENDS = 'anonymous_class_extends';
+    public const ANONYMOUS_CLASS_IMPLEMENTS = 'anonymous_class_implements';
+    public const ANONYMOUS_CLASS_TRAIT = 'anonymous_class_trait';
+    public const ATTRIBUTE = 'attribute';
+    public const SUPERGLOBAL_VARIABLE = 'superglobal_variable';
+
     private TokenName $tokenName;
     private FileOccurrence $fileOccurrence;
     private string $type;
@@ -35,73 +53,8 @@ class AstDependency
         return $this->type;
     }
 
-    public static function useStmt(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
+    public static function fromType(TokenName $tokenName, FileOccurrence $fileOccurrence, string $type): self
     {
-        return new self($classLikeName, $fileOccurrence, 'use');
-    }
-
-    public static function returnType(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'returntype');
-    }
-
-    public static function parameter(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'parameter');
-    }
-
-    public static function newStmt(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'new');
-    }
-
-    public static function staticProperty(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'static_property');
-    }
-
-    public static function staticMethod(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'static_method');
-    }
-
-    public static function instanceofExpr(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'instanceof');
-    }
-
-    public static function catchStmt(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'catch');
-    }
-
-    public static function variable(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'variable');
-    }
-
-    public static function throwStmt(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'throw');
-    }
-
-    public static function constFetch(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'const');
-    }
-
-    public static function anonymousClassExtends(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'anonymous_class_extends');
-    }
-
-    public static function anonymousClassImplements(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'anonymous_class_implements');
-    }
-
-    public static function attribute(ClassLikeName $classLikeName, FileOccurrence $fileOccurrence): self
-    {
-        return new self($classLikeName, $fileOccurrence, 'attribute');
+        return new self($tokenName, $fileOccurrence, $type);
     }
 }

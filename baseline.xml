@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.x-dev@">
-  <file src="src/AstRunner/AstMap/AstFileReference.php">
-    <DeprecatedProperty occurrences="1">
-      <code>$this-&gt;dependencies</code>
-    </DeprecatedProperty>
-  </file>
-  <file src="src/AstRunner/AstMap/FileReferenceBuilder.php">
-    <DeprecatedProperty occurrences="2">
-      <code>$this-&gt;countUseStatementsAsDependencies</code>
-      <code>$this-&gt;dependencies</code>
-    </DeprecatedProperty>
+  <file src="src/AstRunner/AstMap/File/AstFileReference.php">
+    <ImpureFunctionCall occurrences="2">
+      <code>array_map</code>
+      <code>array_map</code>
+    </ImpureFunctionCall>
   </file>
   <file src="src/AstRunner/AstParser/AstFileReferenceFileCache.php">
     <UnnecessaryVarAnnotation occurrences="1">
       <code>array&lt;string, array{hash: string, reference: AstFileReference}&gt;</code>
     </UnnecessaryVarAnnotation>
   </file>
-  <file src="src/AstRunner/AstParser/NikicPhpParser/ClassReferenceVisitor.php">
-    <DeprecatedMethod occurrences="2">
-      <code>use</code>
-      <code>use</code>
-    </DeprecatedMethod>
+  <file src="src/AstRunner/AstParser/NikicPhpParser/FileReferenceVisitor.php">
     <MixedArgument occurrences="1">
-      <code>$className</code>
+      <code>$name</code>
     </MixedArgument>
     <MixedAssignment occurrences="1">
-      <code>$className</code>
+      <code>$name</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="1">
+    <MixedInferredReturnType occurrences="1">
+      <code>?string</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="2">
+      <code>toCodeString</code>
       <code>toCodeString</code>
     </MixedMethodCall>
+    <MixedReturnStatement occurrences="1">
+      <code>$node-&gt;namespacedName-&gt;toCodeString()</code>
+    </MixedReturnStatement>
   </file>
   <file src="src/AstRunner/AstParser/NikicPhpParser/NikicPhpParser.php">
     <MixedArrayOffset occurrences="1">
@@ -223,10 +221,10 @@
       <code>$value</code>
     </MixedArgumentTypeCoercion>
   </file>
-  <file src="src/DependencyEmitter/UsesDependencyEmitter.php">
-    <DeprecatedMethod occurrences="1">
-      <code>getDependencies</code>
-    </DeprecatedMethod>
+  <file src="src/Dependency/Resolver.php">
+    <DeprecatedClass occurrences="1">
+      <code>UsesDependencyEmitter</code>
+    </DeprecatedClass>
   </file>
   <file src="src/OutputFormatter/BaselineOutputFormatter.php">
     <MixedArgument occurrences="2">
@@ -250,10 +248,8 @@
       <code>$dumpHtmlPath</code>
       <code>$dumpImagePath</code>
     </MixedAssignment>
-    <RedundantCondition occurrences="4">
+    <RedundantCondition occurrences="2">
       <code>false !== $filename</code>
-      <code>false !== $filename</code>
-      <code>isset($filename) &amp;&amp; false !== $filename</code>
       <code>isset($filename) &amp;&amp; false !== $filename</code>
     </RedundantCondition>
   </file>
@@ -274,11 +270,6 @@
     <MixedAssignment occurrences="1">
       <code>$dumpXmlPath</code>
     </MixedAssignment>
-  </file>
-  <file src="src/OutputFormatterFactory.php">
-    <UnusedParam occurrences="1">
-      <code>$formatter</code>
-    </UnusedParam>
   </file>
   <file src="src/PathNameFilterIterator.php">
     <MixedArgument occurrences="2">

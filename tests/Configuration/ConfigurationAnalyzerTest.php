@@ -18,7 +18,7 @@ final class ConfigurationAnalyzerTest extends TestCase
             'count_use_statements' => true,
         ]);
 
-        self::assertTrue($configuration->isCountingUseStatements());
+        self::assertSame(['class', 'use'], $configuration->getTypes());
     }
 
     public function testNotCounting(): void
@@ -27,12 +27,12 @@ final class ConfigurationAnalyzerTest extends TestCase
             'count_use_statements' => false,
         ]);
 
-        self::assertFalse($configuration->isCountingUseStatements());
+        self::assertSame(['class'], $configuration->getTypes());
     }
 
     public function testDefaultCounting(): void
     {
         $configuration = ConfigurationAnalyzer::fromArray([]);
-        self::assertTrue($configuration->isCountingUseStatements());
+        self::assertSame(['class', 'use'], $configuration->getTypes());
     }
 }

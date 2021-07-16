@@ -8,6 +8,9 @@ use Qossmic\Deptrac\AstRunner\AstMap;
 use Qossmic\Deptrac\Dependency\Dependency;
 use Qossmic\Deptrac\Dependency\Result;
 
+/**
+ * @deprecated
+ */
 class UsesDependencyEmitter implements DependencyEmitterInterface
 {
     public function getName(): string
@@ -21,13 +24,15 @@ class UsesDependencyEmitter implements DependencyEmitterInterface
             $dependencies = $fileReference->getDependencies();
             foreach ($fileReference->getAstClassReferences() as $astClassReference) {
                 foreach ($dependencies as $emittedDependency) {
-                    $dependencyResult->addDependency(
-                        new Dependency(
-                            $astClassReference->getTokenName(),
-                            $emittedDependency->getTokenName(),
-                            $emittedDependency->getFileOccurrence()
-                        )
-                    );
+                    if (AstMap\AstDependency::USE === $emittedDependency->getType()) {
+                        $dependencyResult->addDependency(
+                            new Dependency(
+                                $astClassReference->getTokenName(),
+                                $emittedDependency->getTokenName(),
+                                $emittedDependency->getFileOccurrence()
+                            )
+                        );
+                    }
                 }
             }
         }

@@ -37,7 +37,7 @@ class LayerAnalyser
 
         foreach ($astMap->getAstClassReferences() as $classReference) {
             $classLikeName = $classReference->getTokenName();
-            if (in_array($layer, $classLikeLayerResolver->getLayersByClassLikeName($classLikeName), true)) {
+            if (in_array($layer, $classLikeLayerResolver->getLayersByTokenName($classLikeName), true)) {
                 $tokenNames[] = $classLikeName->toString();
             }
         }

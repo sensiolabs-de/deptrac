@@ -20,10 +20,10 @@ class ClassLikeLayerResolverFactory
         $this->parameterResolver = $parameterResolver;
     }
 
-    public function create(Configuration $configuration, AstMap $astMap): ClassLikeLayerResolverInterface
+    public function create(Configuration $configuration, AstMap $astMap): TokenLayerResolverInterface
     {
-        return new MemoizedClassLikeLayerResolver(
-            new ClassLikeLayerResolver(
+        return new MemoizedTokenLayerResolver(
+            new TokenLayerResolver(
                 $configuration,
                 $astMap,
                 $this->registry,

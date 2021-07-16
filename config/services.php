@@ -12,7 +12,6 @@ use Qossmic\Deptrac\AstRunner\AstRunner;
 use Qossmic\Deptrac\AstRunner\Resolver\AnnotationDependencyResolver;
 use Qossmic\Deptrac\AstRunner\Resolver\AnonymousClassResolver;
 use Qossmic\Deptrac\AstRunner\Resolver\ClassConstantResolver;
-use Qossmic\Deptrac\AstRunner\Resolver\PropertyTypeResolver;
 use Qossmic\Deptrac\AstRunner\Resolver\TypeResolver;
 use Qossmic\Deptrac\ClassLikeAnalyser;
 use Qossmic\Deptrac\ClassLikeLayerResolverFactory;
@@ -39,6 +38,10 @@ use Qossmic\Deptrac\Console\Command\InitCommand;
 use Qossmic\Deptrac\Dependency\InheritanceFlatter;
 use Qossmic\Deptrac\Dependency\Resolver;
 use Qossmic\Deptrac\DependencyEmitter\ClassDependencyEmitter;
+use Qossmic\Deptrac\DependencyEmitter\ClassSuperglobalDependencyEmitter as ClassSuperglobalDependencyEmitter;
+use Qossmic\Deptrac\DependencyEmitter\FileDependencyEmitter as FileDependencyEmitter;
+use Qossmic\Deptrac\DependencyEmitter\FunctionDependencyEmitter as FunctionDependencyEmitter;
+use Qossmic\Deptrac\DependencyEmitter\FunctionSuperglobalDependencyEmitter as FunctionSuperglobalDependencyEmitter;
 use Qossmic\Deptrac\DependencyEmitter\UsesDependencyEmitter;
 use Qossmic\Deptrac\FileResolver;
 use Qossmic\Deptrac\LayerAnalyser;
@@ -89,7 +92,6 @@ return static function (ContainerConfigurator $container): void {
             service(AnnotationDependencyResolver::class),
             service(AnonymousClassResolver::class),
             service(ClassConstantResolver::class),
-            service(PropertyTypeResolver::class),
         ]);
 
     $services
@@ -98,9 +100,6 @@ return static function (ContainerConfigurator $container): void {
     $services->set(AnonymousClassResolver::class);
     $services->set(ClassConstantResolver::class);
     $services->set(TypeResolver::class);
-    $services
-        ->set(PropertyTypeResolver::class)
-        ->args([service(TypeResolver::class)]);
 
     $services
         ->set(ClassLikeLayerResolverFactory::class)
@@ -228,15 +227,20 @@ return static function (ContainerConfigurator $container): void {
         ->args([
             service(EventDispatcher::class),
             service(InheritanceFlatter::class),
-            tagged_iterator('dependency_emitter'),
+            service(ClassDependencyEmitter::class),
+            service(ClassSuperglobalDependencyEmitter::class),
+            service(FileDependencyEmitter::class),
+            service(FunctionDependencyEmitter::class),
+            service(FunctionSuperglobalDependencyEmitter::class),
+            service(UsesDependencyEmitter::class),
         ]);
     $services->set(InheritanceFlatter::class);
-    $services
-        ->set(UsesDependencyEmitter::class)
-        ->tag('dependency_emitter');
-    $services
-        ->set(ClassDependencyEmitter::class)
-        ->tag('dependency_emitter');
+    $services->set(ClassDependencyEmitter::class);
+    $services->set(ClassSuperglobalDependencyEmitter::class);
+    $services->set(FileDependencyEmitter::class);
+    $services->set(FunctionDependencyEmitter::class);
+    $services->set(FunctionSuperglobalDependencyEmitter::class);
+    $services->set(UsesDependencyEmitter::class);
 
     /* Commands */
     $services

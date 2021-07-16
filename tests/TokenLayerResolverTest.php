@@ -9,14 +9,14 @@ use Prophecy\Argument;
 use Qossmic\Deptrac\AstRunner\AstMap;
 use Qossmic\Deptrac\AstRunner\AstMap\AstClassReference;
 use Qossmic\Deptrac\AstRunner\AstMap\ClassLikeName;
-use Qossmic\Deptrac\ClassLikeLayerResolver;
 use Qossmic\Deptrac\Collector\CollectorInterface;
 use Qossmic\Deptrac\Collector\Registry;
 use Qossmic\Deptrac\Configuration\Configuration;
 use Qossmic\Deptrac\Configuration\ConfigurationLayer;
 use Qossmic\Deptrac\Configuration\ParameterResolver;
+use Qossmic\Deptrac\TokenLayerResolver;
 
-final class ClassLikeLayerResolverTest extends TestCase
+final class TokenLayerResolverTest extends TestCase
 {
     private function getCollector(bool $return)
     {
@@ -111,7 +111,7 @@ final class ClassLikeLayerResolverTest extends TestCase
             $this->getCollector($collectB2)
         );
 
-        $resolver = new ClassLikeLayerResolver(
+        $resolver = new TokenLayerResolver(
             $configuration->reveal(),
             $astMap->reveal(),
             $collectorRegistry->reveal(),
@@ -120,7 +120,7 @@ final class ClassLikeLayerResolverTest extends TestCase
 
         self::assertEquals(
             $expectedLayers,
-            $resolver->getLayersByClassLikeName(ClassLikeName::fromFQCN('classA'))
+            $resolver->getLayersByTokenName(ClassLikeName::fromFQCN('classA'))
         );
     }
 }

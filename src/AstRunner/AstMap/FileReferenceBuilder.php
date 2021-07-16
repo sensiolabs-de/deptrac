@@ -4,49 +4,26 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\AstRunner\AstMap;
 
-final class FileReferenceBuilder
+final class FileReferenceBuilder extends ReferenceBuilder
 {
-    /**
-     * @var AstDependency[]
-     *
-     * @deprecated
-     */
-    private array $dependencies = [];
-
-    private string $filepath;
-
     /** @var ClassReferenceBuilder[] */
     private array $classReferences = [];
 
-    private ?ClassReferenceBuilder $currentClassReference = null;
+    /** @var FunctionReferenceBuilder[] */
+    private array $functionReferences = [];
 
-    /**
-     * @deprecated use `UseVisitor` instead
-     */
-    private bool $countUseStatementsAsDependencies;
-
-    private function __construct(string $filepath, bool $countUseStatementsAsDependencies)
+    public static function create(string $filepath): self
     {
-        $this->filepath = $filepath;
-        $this->countUseStatementsAsDependencies = $countUseStatementsAsDependencies;
+        return new self([], $filepath);
     }
 
-    public static function create(string $filepath, bool $countUseStatementsAsDependencies = true): self
+    public function useStatement(string $classLikeName, int $occursAtLine): self
     {
-        return new self($filepath, $countUseStatementsAsDependencies);
-    }
-
-    /**
-     * @deprecated use `UseVisitor` instead
-     */
-    public function use(string $classLikeName, int $occursAtLine): self
-    {
-        if ($this->countUseStatementsAsDependencies) {
-            $this->dependencies[] = AstDependency::useStmt(
-                ClassLikeName::fromFQCN($classLikeName),
-                FileOccurrence::fromFilepath($this->filepath, $occursAtLine)
-            );
-        }
+        $this->dependencies[] = AstDependency::fromType(
+            ClassLikeName::fromFQCN($classLikeName),
+            FileOccurrence::fromFilepath($this->filepath, $occursAtLine),
+            AstDependency::USE
+        );
 
         return $this;
     }
@@ -56,14 +33,18 @@ final class FileReferenceBuilder
      */
     public function newClassLike(string $classLikeName, array $templateTypes = []): ClassReferenceBuilder
     {
-        $this->classReferences[] = $this->currentClassReference = ClassReferenceBuilder::create($this->filepath, $classLikeName, $templateTypes);
+        $classReference = ClassReferenceBuilder::create($this->filepath, $classLikeName, $templateTypes);
+        $this->classReferences[] = $classReference;
 
-        return $this->currentClassReference;
+        return $classReference;
     }
 
-    public function currentClassLike(): ?ClassReferenceBuilder
+    public function newFunction(string $functionName): FunctionReferenceBuilder
     {
-        return $this->currentClassReference;
+        $functionReference = FunctionReferenceBuilder::create($this->filepath, $functionName);
+        $this->functionReferences[] = $functionReference;
+
+        return $functionReference;
     }
 
     public function build(): AstFileReference
@@ -73,6 +54,11 @@ final class FileReferenceBuilder
             $classReferences[] = $classReference->build();
         }
 
-        return new AstFileReference($this->filepath, $classReferences, $this->dependencies);
+        $functionReferences = [];
+        foreach ($this->functionReferences as $functionReference) {
+            $functionReferences[] = $functionReference->build();
+        }
+
+        return new AstFileReference($this->filepath, $classReferences, $functionReferences, $this->dependencies);
     }
 }

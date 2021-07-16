@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Qossmic\Deptrac;
 
 use Qossmic\Deptrac\AstRunner\AstMap;
-use Qossmic\Deptrac\AstRunner\AstMap\AstClassReference;
 use Qossmic\Deptrac\AstRunner\AstMap\ClassLikeName;
 use Qossmic\Deptrac\Collector\Registry;
 use Qossmic\Deptrac\Configuration\Configuration;
 use Qossmic\Deptrac\Configuration\ParameterResolver;
 
-class ClassLikeLayerResolver implements ClassLikeLayerResolverInterface
+class TokenLayerResolver implements TokenLayerResolverInterface
 {
     private Configuration $configuration;
     private AstMap $astMap;
@@ -33,13 +32,27 @@ class ClassLikeLayerResolver implements ClassLikeLayerResolverInterface
     /**
      * @return string[]
      */
-    public function getLayersByClassLikeName(ClassLikeName $className): array
+    public function getLayersByTokenName(AstMap\TokenName $tokenName): array
     {
         /** @var array<string, bool> $layers */
         $layers = [];
 
-        if (!$astClassReference = $this->astMap->getClassReferenceByClassName($className)) {
-            $astClassReference = new AstClassReference($className);
+        if ($tokenName instanceof ClassLikeName) {
+            if (!$astTokenReference = $this->astMap->getClassReferenceByClassName($tokenName)) {
+                $astTokenReference = new AstMap\AstClassReference($tokenName);
+            }
+        } elseif ($tokenName instanceof AstMap\FunctionName) {
+            if (!$astTokenReference = $this->astMap->getFunctionReferenceByFunctionName($tokenName)) {
+                $astTokenReference = new AstMap\AstFunctionReference($tokenName);
+            }
+        } elseif ($tokenName instanceof AstMap\FileName) {
+            if (!$astTokenReference = $this->astMap->getFileReferenceByFileName($tokenName)) {
+                $astTokenReference = new AstMap\AstFileReference($tokenName->getFilepath(), [], [], []);
+            }
+        } elseif ($tokenName instanceof AstMap\SuperGlobalName) {
+            $astTokenReference = new AstMap\AstVariableReference($tokenName);
+        } else {
+            throw new ShouldNotHappenException();
         }
 
         foreach ($this->configuration->getLayers() as $configurationLayer) {
@@ -51,7 +64,7 @@ class ClassLikeLayerResolver implements ClassLikeLayerResolverInterface
                     $this->configuration->getParameters()
                 );
 
-                if ($collector->satisfy($configuration, $astClassReference, $this->astMap, $this->collectorRegistry)) {
+                if ($collector->satisfy($configuration, $astTokenReference, $this->astMap, $this->collectorRegistry)) {
                     $layers[$configurationLayer->getName()] = true;
                 }
             }

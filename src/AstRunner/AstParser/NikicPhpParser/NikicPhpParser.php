@@ -16,7 +16,7 @@ use Qossmic\Deptrac\AstRunner\AstMap\AstFileReference;
 use Qossmic\Deptrac\AstRunner\AstMap\FileReferenceBuilder;
 use Qossmic\Deptrac\AstRunner\AstParser\AstFileReferenceCache;
 use Qossmic\Deptrac\AstRunner\AstParser\AstParser;
-use Qossmic\Deptrac\AstRunner\Resolver\ClassDependencyResolver;
+use Qossmic\Deptrac\AstRunner\Resolver\DependencyResolver;
 use Qossmic\Deptrac\AstRunner\Resolver\TypeResolver;
 use Qossmic\Deptrac\Configuration\ConfigurationAnalyzer;
 use Qossmic\Deptrac\File\FileReader;
@@ -36,9 +36,9 @@ class NikicPhpParser implements AstParser
     private TypeResolver $typeResolver;
 
     /**
-     * @var ClassDependencyResolver[]
+     * @var DependencyResolver[]
      */
-    private array $classDependencyResolvers;
+    private array $dependencyResolvers;
 
     private NodeTraverser $traverser;
 
@@ -46,12 +46,12 @@ class NikicPhpParser implements AstParser
         Parser $parser,
         AstFileReferenceCache $cache,
         TypeResolver $typeResolver,
-        ClassDependencyResolver ...$classDependencyResolvers
+        DependencyResolver ...$dependencyResolvers
     ) {
         $this->parser = $parser;
         $this->cache = $cache;
         $this->typeResolver = $typeResolver;
-        $this->classDependencyResolvers = $classDependencyResolvers;
+        $this->dependencyResolvers = $dependencyResolvers;
 
         $this->traverser = new NodeTraverser();
         $this->traverser->addVisitor(new NameResolver());
@@ -63,14 +63,13 @@ class NikicPhpParser implements AstParser
             return $fileReference;
         }
 
-        $fileReferenceBuilder = FileReferenceBuilder::create($file, $configuration->isCountingUseStatements());
-        $visitor = new ClassReferenceVisitor($fileReferenceBuilder, $this->typeResolver, ...$this->classDependencyResolvers);
-
+        $fileReferenceBuilder = FileReferenceBuilder::create($file);
         $nodes = $this->parser->parse(FileReader::read($file));
         if (null === $nodes) {
             throw new ShouldNotHappenException();
         }
 
+        $visitor = new FileReferenceVisitor($fileReferenceBuilder, $this->typeResolver, ...$this->dependencyResolvers);
         $this->traverser->addVisitor($visitor);
         $this->traverser->traverse($nodes);
         $this->traverser->removeVisitor($visitor);

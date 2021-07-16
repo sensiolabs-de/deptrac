@@ -34,52 +34,6 @@ final class NikicPhpParserTest extends TestCase
         $this->parser->parseFile(new \stdClass(), ConfigurationAnalyzer::fromArray([]));
     }
 
-    public function testParseIgnoreUses(): void
-    {
-        $typeResolver = new TypeResolver();
-        $parser = new NikicPhpParser(
-            ParserFactory::createParser(),
-            new AstFileReferenceInMemoryCache(),
-            $typeResolver
-        );
-
-        $filePath = __DIR__.'/Fixtures/CountingUseStatements.php';
-        $configuration = Configuration::fromArray(
-            [
-                'layers' => [],
-                'paths' => [],
-                'ruleset' => [],
-                'analyzer' => [
-                    'count_use_statements' => false,
-                ],
-            ]
-        );
-        self::assertCount(0, $parser->parseFile($filePath, $configuration->getAnalyzer())->getDependencies());
-    }
-
-    public function testParseDoesNotIgnoreUses(): void
-    {
-        $typeResolver = new TypeResolver();
-        $parser = new NikicPhpParser(
-            ParserFactory::createParser(),
-            new AstFileReferenceInMemoryCache(),
-            $typeResolver
-        );
-
-        $filePath = __DIR__.'/Fixtures/CountingUseStatements.php';
-        $configuration = Configuration::fromArray(
-            [
-                'layers' => [],
-                'paths' => [],
-                'ruleset' => [],
-                'analyzer' => [
-                    'count_use_statements' => true,
-                ],
-            ]
-        );
-        self::assertCount(1, $parser->parseFile($filePath, $configuration->getAnalyzer())->getDependencies());
-    }
-
     public function testParseDoesNotIgnoreUsesByDefault(): void
     {
         $typeResolver = new TypeResolver();

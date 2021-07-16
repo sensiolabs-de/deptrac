@@ -33,6 +33,6 @@ class ClassLikeAnalyser
 
         return $this->classLikeLayerResolverFactory
             ->create($configuration, $astMap)
-            ->getLayersByClassLikeName($classLikeName);
+            ->getLayersByTokenName($classLikeName);
     }
 }

@@ -11,7 +11,7 @@ final class ConfigurationCollector
     private string $type;
 
     /** @var array<string, string> */
-    private $args;
+    private array $args;
 
     /**
      * @param array<string, string> $args

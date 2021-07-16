@@ -107,6 +107,7 @@ class AstFileReferenceFileCache implements AstFileReferenceCache
                     $data['reference'],
                     [
                         'allowed_classes' => [
+                            //TODO: Add new classes (Patrick Kusebauch @ 10.07.21)
                             AstFileReference::class,
                             AstClassReference::class,
                             AstInherit::class,

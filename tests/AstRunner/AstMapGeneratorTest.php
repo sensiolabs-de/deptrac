@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Qossmic\Deptrac\AstRunner\Visitor;
+namespace Tests\Qossmic\Deptrac\AstRunner;
 
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\AstRunner\AstMap;
@@ -17,7 +17,6 @@ use Qossmic\Deptrac\AstRunner\Resolver\ClassConstantResolver;
 use Qossmic\Deptrac\AstRunner\Resolver\TypeResolver;
 use Qossmic\Deptrac\Configuration\ConfigurationAnalyzer;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Tests\Qossmic\Deptrac\AstRunner\ArrayAsserts;
 use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\BasicDependency\BasicDependencyClassB;
 use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\BasicDependency\BasicDependencyClassC;
 use Tests\Qossmic\Deptrac\AstRunner\Visitor\Fixtures\BasicDependency\BasicDependencyTraitA;
